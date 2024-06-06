@@ -51,9 +51,9 @@ function Contraseña() {
 
     for (var i = 0; i < contraseña_solo_valor.length; i++) {
         console.log("pass [i]", contraseña_solo_valor[i]);
-        if (parseInt(contraseña_solo_valor[i])) {
+        if (!isNaN(parseInt(contraseña_solo_valor[i]))) {
             tiene_numero = true;
-        } else if (typeof contraseña_solo_valor[i] === "string") {
+        } else if (/[a-zA-Z]/.test(contraseña_solo_valor[i])) {
             tiene_letras = true;
         }
     }
@@ -63,15 +63,15 @@ function Contraseña() {
         div_error_contraseña.className = "form-text text-danger";
         return false;
     } else if (contraseña_solo_valor.length < 3 || contraseña_solo_valor.length > 6) {
-        div_error_contraseña.innerHTML = "La contraseña debe tener al menos 3 caracteres y menor que 6 caracteres digitos";
+        div_error_contraseña.innerHTML = "La contraseña debe tener al menos 3 caracteres y menor que 6 caracteres";
         div_error_contraseña.className = "form-text text-danger";
         return false;
-    } else if (tiene_letras == false) {
-        div_error_contraseña.innerHTML = "La contraseña necesita una letra minimo";
+    } else if (!tiene_letras) {
+        div_error_contraseña.innerHTML = "La contraseña necesita una letra mínimo";
         div_error_contraseña.className = "form-text text-danger";
         return false;
-    } else if (tiene_numero == false) {
-        div_error_contraseña.innerHTML = "La contraseña necesita un numero minimo";
+    } else if (!tiene_numero) {
+        div_error_contraseña.innerHTML = "La contraseña necesita un número mínimo";
         div_error_contraseña.className = "form-text text-danger";
         return false;
     } else {
@@ -83,27 +83,24 @@ function Contraseña() {
 
 function confirmar_Contraseña() {
     var contraseña = document.getElementById("contraseña").value;
-    var contraseña_solo_valor = contraseña.value;
     var confirmar_Contraseña = document.getElementById("confirmarContraseña");
     var confirmar_contraseña_solo_valor = confirmar_Contraseña.value;
     var div_error_Confirmar_Contraseñaseña = document.getElementById("errorConfirmarContraseña");
 
-
     if (confirmar_contraseña_solo_valor == "") {
-        div_error_Confirmar_Contraseñaseña.innerHTML = "La confirmacion de contraseña es obligatoria";
+        div_error_Confirmar_Contraseñaseña.innerHTML = "La confirmación de contraseña es obligatoria";
         div_error_Confirmar_Contraseñaseña.className = "form-text text-danger";
         return false;
-    } else if (confirmar_contraseña_solo_valor != contraseña_solo_valor) {
-        div_error_Confirmar_Contraseñaseña.innerHTML = "la contraseña no coincide";
+    } else if (confirmar_contraseña_solo_valor != contraseña) {
+        div_error_Confirmar_Contraseñaseña.innerHTML = "La contraseña no coincide";
         div_error_Confirmar_Contraseñaseña.className = "form-text text-danger";
         return false;
     } else {
-        div_error_Confirmar_Contraseñaseña.innerHTML = "La contraseñas coinciden";
+        div_error_Confirmar_Contraseñaseña.innerHTML = "Las contraseñas coinciden";
         div_error_Confirmar_Contraseñaseña.className = "form-text text-success";
         return true;
     }
 }
-
 function ValidarCorreo() {
     var correo = document.getElementById("correo");
     var correo_solo_valor = correo.value;
@@ -272,7 +269,7 @@ function ValidarPasaTiempos() {
     var div_error_Pasa_tiempos = document.getElementById("errorpasatiempo");
 if (pasatiemposArray.length >= 2) {
     div_error_Pasa_tiempos.innerHTML = "";
-    div_error_Pasa_tiempos.innerHTML = "El correo electrónico es válido";
+    div_error_Pasa_tiempos.innerHTML = "El mínimo de pasatiempos es válido";
     div_error_Pasa_tiempos.className = "form-text text-success";
     return true;
 }
@@ -282,6 +279,10 @@ if (pasatiemposArray.length >= 2) {
         return false
     }
 }
+
+
+
+
 
 
 
